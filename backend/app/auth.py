@@ -1,16 +1,14 @@
 import os
+import bcrypt
 from datetime import datetime, timedelta
 from typing import Optional
 from fastapi import Header, HTTPException, Depends
 from sqlalchemy.orm import Session
-from passlib.context import CryptContext
 from jose import JWTError, jwt
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 from . import models
 from .database import get_db
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'studyplanner_secret_key_change_me_12345')
 ALGORITHM = "HS256"
@@ -19,10 +17,14 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login", auto_error=False)
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+    try:
+        return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
+    except Exception:
+        return False
 
 def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
+    password_bytes = password.encode('utf-8')[:72]
+    return bcrypt.hashpw(password_bytes, bcrypt.gensalt()).decode('utf-8')
 
 def authenticate_user(db: Session, username: str, password: str) -> Optional[models.User]:
     user = db.query(models.User).filter(models.User.username == username).first()
