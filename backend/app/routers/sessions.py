@@ -7,7 +7,15 @@ router = APIRouter(prefix="/sessions", tags=["sessions"])
 
 @router.post("/", response_model=schemas.StudySessionResponse)
 def create_session(session: schemas.StudySessionCreate, db: Session = Depends(get_db), current_user: models.User = Depends(auth_utils.get_current_user)):
-    db_session = models.StudySession(start_time=session.start_time, end_time=session.end_time, notes=session.notes, user_id=current_user.id)
+    db_session = models.StudySession(
+        start_time=session.start_time,
+        end_time=session.end_time,
+        duration_minutes=session.duration_minutes,
+        subject_name=session.subject_name,
+        topic_name=session.topic_name,
+        notes=session.notes,
+        user_id=current_user.id
+    )
     db.add(db_session)
     db.commit()
     db.refresh(db_session)

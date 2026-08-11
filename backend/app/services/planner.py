@@ -331,4 +331,14 @@ Return ONLY valid JSON matching this schema:
             print(f"Gemini API call error: {e}. Falling back to heuristic AI engine.")
 
     # Fallback to smart heuristic planner
-    return generate_plan_heuristic(db, user_id, available_hours, study_style, subject_ids, topic_ids, auto_mode, custom_instructions)
+    return generate_plan_heuristic(
+        db=db,
+        user_id=user_id,
+        available_hours=available_hours,
+        study_style=study_style,
+        subject_ids=subject_ids,
+        topic_ids=topic_ids,
+        auto_mode=auto_mode,
+        is_quick_planner=is_quick_planner,
+        custom_instructions=custom_instructions
+    )

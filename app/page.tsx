@@ -2078,7 +2078,7 @@ export default function Home() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
-                    {sessions.map((sess) => (
+                    {sessions.map((sess: StudySession) => (
                       <tr key={sess.id} className="hover:bg-slate-900/40">
                         <td className="py-3 px-4 font-bold text-purple-300">{sess.subject_name || 'General'}</td>
                         <td className="py-3 px-4 text-white font-medium">{sess.topic_name || 'Study Session'}</td>
