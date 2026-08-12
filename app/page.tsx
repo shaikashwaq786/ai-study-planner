@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { api, User, Subject, Topic, Exam, StudySession, PlanItem, PlanResponse } from './lib/api';
 
 interface ExtractedTopicPreview {
@@ -639,7 +640,7 @@ export default function Home() {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-[#090d16] text-white">
         <div className="flex flex-col items-center gap-4">
-          <div className="h-12 w-12 animate-spin rounded-full border-4 border-purple-500 border-t-transparent"></div>
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent"></div>
           <p className="text-slate-400 font-medium animate-pulse">Initializing AI Study Planner...</p>
         </div>
       </div>
@@ -649,10 +650,10 @@ export default function Home() {
   // Auth Screen
   if (!user) {
     return (
-      <div className="min-h-screen w-full flex items-center justify-center p-4 bg-[#090d16] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/30 via-[#090d16] to-[#090d16]">
-        <div className="glass-panel w-full max-w-md p-8 rounded-3xl border border-white/10 shadow-2xl space-y-6">
+      <div className="min-h-screen w-full flex items-center justify-center p-4 bg-[#090d16] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/30 via-[#090d16] to-[#090d16]">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} className="glass-panel w-full max-w-md p-8 rounded-3xl border border-white/10 shadow-[0_0_20px_rgba(16,185,129,0.15)] space-y-6">
           <div className="text-center space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
               ✨ AI-Powered Academic Assistant
             </div>
             <h1 className="text-3xl font-extrabold tracking-tight text-white">
@@ -662,22 +663,22 @@ export default function Home() {
           </div>
 
           <div className="flex rounded-xl bg-slate-900/60 p-1 border border-white/5">
-            <button
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
               onClick={() => setAuthMode('login')}
               className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${
-                authMode === 'login' ? 'bg-purple-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'
+                authMode === 'login' ? 'bg-emerald-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'
               }`}
             >
               Sign In
-            </button>
-            <button
+            </motion.button>
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
               onClick={() => setAuthMode('register')}
               className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${
-                authMode === 'register' ? 'bg-purple-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'
+                authMode === 'register' ? 'bg-emerald-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'
               }`}
             >
               Register
-            </button>
+            </motion.button>
           </div>
 
           {authError && (
@@ -695,7 +696,7 @@ export default function Home() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="e.g. alex_student"
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500 transition-colors"
+                className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500 transition-colors"
               />
             </div>
 
@@ -708,7 +709,7 @@ export default function Home() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="alex@example.com"
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500 transition-colors"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500 transition-colors"
                 />
               </div>
             )}
@@ -721,11 +722,11 @@ export default function Home() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500 transition-colors"
+                className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500 transition-colors"
               />
             </div>
 
-            <button
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={authLoading}
               className="w-full py-3 rounded-xl gradient-btn text-white font-bold text-sm shadow-lg flex items-center justify-center gap-2"
@@ -737,7 +738,7 @@ export default function Home() {
               ) : (
                 'Create Free Account'
               )}
-            </button>
+            </motion.button>
           </form>
 
           <div className="text-center">
@@ -745,7 +746,7 @@ export default function Home() {
               Demo account? You can register any username & password to start!
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     );
   }
@@ -757,10 +758,10 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-[#090d16] text-slate-100">
       {/* Header Bar */}
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#090d16]/80 backdrop-blur-md px-6 py-4">
+      <motion.header initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5 }} className="sticky top-0 z-30 border-b border-white/10 bg-[#090d16]/80 backdrop-blur-md px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center font-bold text-white shadow-lg shadow-purple-500/20">
+            <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-emerald-500 flex items-center justify-center font-bold text-white shadow-lg shadow-emerald-500/20">
               🧠
             </div>
             <div>
@@ -776,25 +777,25 @@ export default function Home() {
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
               <span>Logged in as <strong className="text-white">{user.username}</strong></span>
             </div>
-            <button
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
               onClick={handleLogout}
               className="px-3.5 py-1.5 rounded-xl border border-white/10 text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
             >
               Sign Out
-            </button>
+            </motion.button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+      <motion.main initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, staggerChildren: 0.1 }} className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
         {/* Top Summary Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="glass-panel p-4 rounded-2xl border border-white/10">
             <div className="text-xs text-slate-400 font-medium">Academic Calendar Events</div>
             <div className="mt-1 flex items-baseline justify-between">
               <div className="text-2xl font-bold text-white">{exams.length}</div>
-              <div className="text-xs text-purple-400 font-semibold bg-purple-500/10 px-2 py-0.5 rounded-full">
+              <div className="text-xs text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full">
                 {exams.length > 0 ? getDaysUntil(exams[0].date) : 'No events'}
               </div>
             </div>
@@ -833,66 +834,66 @@ export default function Home() {
 
         {/* Tab Navigation */}
         <div className="flex overflow-x-auto gap-2 border-b border-white/10 pb-2 scrollbar-none">
-          <button
+          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab('planner')}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all whitespace-nowrap ${
               activeTab === 'planner'
-                ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/30'
+                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/30'
                 : 'text-slate-400 hover:text-white hover:bg-slate-900/60'
             }`}
           >
             🤖 AI Study Studio
-          </button>
-          <button
+          </motion.button>
+          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab('quick')}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all whitespace-nowrap ${
               activeTab === 'quick'
-                ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/30'
+                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/30'
                 : 'text-slate-400 hover:text-white hover:bg-slate-900/60'
             }`}
           >
             ⚡ Quick Proportional Planner
-          </button>
-          <button
+          </motion.button>
+          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab('timer')}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all whitespace-nowrap ${
               activeTab === 'timer'
-                ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/30'
+                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/30'
                 : 'text-slate-400 hover:text-white hover:bg-slate-900/60'
             }`}
           >
             ⏱️ Pomodoro Timer {timerRunning && <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>}
-          </button>
-          <button
+          </motion.button>
+          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab('subjects')}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all whitespace-nowrap ${
               activeTab === 'subjects'
-                ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/30'
+                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/30'
                 : 'text-slate-400 hover:text-white hover:bg-slate-900/60'
             }`}
           >
             📚 Subjects & Syllabus Analyzer
-          </button>
-          <button
+          </motion.button>
+          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab('calendar')}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all whitespace-nowrap ${
               activeTab === 'calendar'
-                ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/30'
+                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/30'
                 : 'text-slate-400 hover:text-white hover:bg-slate-900/60'
             }`}
           >
             📅 Academic Calendar ({exams.length})
-          </button>
-          <button
+          </motion.button>
+          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab('history')}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all whitespace-nowrap ${
               activeTab === 'history'
-                ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/30'
+                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/30'
                 : 'text-slate-400 hover:text-white hover:bg-slate-900/60'
             }`}
           >
             📜 Study History
-          </button>
+          </motion.button>
         </div>
 
         {/* TAB 1: AI STUDY STUDIO */}
@@ -900,7 +901,7 @@ export default function Home() {
           <div className="space-y-6">
             {/* Academic Calendar Recommendation Banner */}
             {upcomingRecommendations.length > 0 && (
-              <div className="p-4 rounded-3xl bg-gradient-to-r from-amber-950/40 via-purple-950/40 to-slate-900 border border-amber-500/30 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="p-4 rounded-3xl bg-gradient-to-r from-amber-950/40 via-emerald-950/40 to-slate-900 border border-amber-500/30 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex items-start gap-3">
                   <div className="text-2xl p-2 rounded-2xl bg-amber-500/20 border border-amber-500/30 text-amber-300">
                     💡
@@ -914,22 +915,22 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-                <button
+                <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                   onClick={handleSelectRecommendedSubjects}
                   className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs shadow-md transition-all whitespace-nowrap"
                 >
                   ⚡ Select Recommended Subject(s)
-                </button>
+                </motion.button>
               </div>
             )}
 
             {/* AI History Memory Indicator */}
             {lastStudiedSession && (
-              <div className="p-3 rounded-2xl bg-indigo-950/30 border border-indigo-500/20 flex items-center justify-between text-xs text-indigo-300">
+              <div className="p-3 rounded-2xl bg-indigo-950/30 border border-emerald-500/20 flex items-center justify-between text-xs text-indigo-300">
                 <div className="flex items-center gap-2">
                   <span>🧠 <strong>AI Study History Memory:</strong> Last session completed: <em>"{lastStudiedSession.subject_name} - {lastStudiedSession.topic_name}"</em> ({lastStudiedSession.duration_minutes}m).</span>
                 </div>
-                <span className="text-[10px] font-bold bg-indigo-500/20 text-indigo-200 px-2 py-0.5 rounded-full border border-indigo-500/30">
+                <span className="text-[10px] font-bold bg-emerald-500/20 text-indigo-200 px-2 py-0.5 rounded-full border border-emerald-500/30">
                   Continuity Mode Active
                 </span>
               </div>
@@ -955,7 +956,7 @@ export default function Home() {
 
                 <div className="space-y-4">
                   {/* Auto AI Continuity Switch */}
-                  <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-900 border border-purple-500/20">
+                  <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-900 border border-emerald-500/20">
                     <div>
                       <span className="text-xs font-bold text-white block">🤖 Auto AI Continuity Mode</span>
                       <span className="text-[10px] text-slate-400 block">Sequence next continuous topic from past logs</span>
@@ -964,7 +965,7 @@ export default function Home() {
                       type="checkbox"
                       checked={autoMode}
                       onChange={(e) => setAutoMode(e.target.checked)}
-                      className="h-5 w-5 accent-purple-500 cursor-pointer"
+                      className="h-5 w-5 accent-emerald-500 cursor-pointer"
                     />
                   </div>
 
@@ -975,21 +976,21 @@ export default function Home() {
                         Target Subjects & Topics ({selectedSubjectIds.length} subjects, {selectedTopicIds.length} topics)
                       </label>
                       <div className="flex gap-2">
-                        <button
+                        <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                           type="button"
                           onClick={handleSelectAllSubjects}
-                          className="text-[10px] text-purple-400 hover:text-purple-300 font-semibold"
+                          className="text-[10px] text-emerald-400 hover:text-purple-300 font-semibold"
                         >
                           Select All
-                        </button>
+                        </motion.button>
                         <span className="text-[10px] text-slate-600">•</span>
-                        <button
+                        <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                           type="button"
                           onClick={handleDeselectAllSubjects}
                           className="text-[10px] text-slate-400 hover:text-slate-300"
                         >
                           Deselect All
-                        </button>
+                        </motion.button>
                       </div>
                     </div>
 
@@ -1005,7 +1006,7 @@ export default function Home() {
                               key={s.id}
                               className={`rounded-xl transition-all border ${
                                 isSelected
-                                  ? 'bg-purple-950/40 border-purple-500/50'
+                                  ? 'bg-purple-950/40 border-emerald-500/50'
                                   : 'bg-slate-900/40 border-white/5'
                               }`}
                             >
@@ -1015,17 +1016,17 @@ export default function Home() {
                                     type="checkbox"
                                     checked={isSelected}
                                     onChange={() => toggleSubjectSelection(s.id)}
-                                    className="h-4 w-4 rounded accent-purple-500 cursor-pointer"
+                                    className="h-4 w-4 rounded accent-emerald-500 cursor-pointer"
                                   />
                                   <span className="font-bold text-white">📚 {s.name}</span>
                                 </div>
-                                <button
+                                <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                                   type="button"
                                   onClick={() => setExpandedSubjectId(isExpanded ? null : s.id)}
                                   className="text-[10px] text-purple-300 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-white/10"
                                 >
                                   {isExpanded ? 'Hide Topics ▲' : `View Topics (${subjectTopics.length}) ▼`}
-                                </button>
+                                </motion.button>
                               </div>
 
                               {isExpanded && subjectTopics.length > 0 && (
@@ -1035,14 +1036,14 @@ export default function Home() {
                                     return (
                                       <label
                                         key={t.id}
-                                        className="flex items-center justify-between pl-6 pr-2 py-1 text-[11px] cursor-pointer hover:bg-purple-900/20 rounded"
+                                        className="flex items-center justify-between pl-6 pr-2 py-1 text-[11px] cursor-pointer hover:bg-emerald-900/20 rounded"
                                       >
                                         <div className="flex items-center gap-2">
                                           <input
                                             type="checkbox"
                                             checked={isTopicSelected}
                                             onChange={() => toggleTopicSelection(t.id)}
-                                            className="h-3.5 w-3.5 rounded accent-purple-500 cursor-pointer"
+                                            className="h-3.5 w-3.5 rounded accent-emerald-500 cursor-pointer"
                                           />
                                           <span className={t.completed ? 'line-through text-slate-500' : 'text-slate-200'}>
                                             {t.name}
@@ -1068,7 +1069,7 @@ export default function Home() {
                   <div>
                     <div className="flex justify-between items-center mb-1">
                       <label className="text-xs font-semibold text-slate-300">Available Study Time Today</label>
-                      <span className="text-xs font-bold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded-md">
+                      <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md">
                         {availableHours} Hours
                       </span>
                     </div>
@@ -1079,7 +1080,7 @@ export default function Home() {
                       step="0.5"
                       value={availableHours}
                       onChange={(e) => setAvailableHours(parseFloat(e.target.value))}
-                      className="w-full accent-purple-500 cursor-pointer"
+                      className="w-full accent-emerald-500 cursor-pointer"
                     />
                     <div className="flex justify-between text-[10px] text-slate-500 mt-1">
                       <span>1h (Sprint)</span>
@@ -1097,23 +1098,23 @@ export default function Home() {
                         'Active Recall',
                         'Exam Sprint'
                       ].map((style) => (
-                        <button
+                        <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                           key={style}
                           type="button"
                           onClick={() => setStudyStyle(style)}
                           className={`p-2.5 rounded-xl text-xs font-medium border text-left transition-all ${
                             studyStyle === style
-                              ? 'bg-purple-600/30 border-purple-500 text-purple-200 shadow-md'
+                              ? 'bg-emerald-600/30 border-emerald-500 text-purple-200 shadow-md'
                               : 'bg-slate-900/60 border-white/5 text-slate-400 hover:text-white'
                           }`}
                         >
                           {style}
-                        </button>
+                        </motion.button>
                       ))}
                     </div>
                   </div>
 
-                  <button
+                  <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                     onClick={handleGeneratePlan}
                     disabled={generatingPlan}
                     className="w-full py-3.5 rounded-xl gradient-btn text-white font-bold text-sm shadow-xl flex items-center justify-center gap-2"
@@ -1128,7 +1129,7 @@ export default function Home() {
                         <span>🤖 Generate AI Schedule</span>
                       </>
                     )}
-                  </button>
+                  </motion.button>
                 </div>
               </div>
 
@@ -1136,13 +1137,13 @@ export default function Home() {
               <div className="lg:col-span-2 glass-panel p-6 rounded-3xl border border-white/10 space-y-6">
                 {aiPlan ? (
                   <div className="space-y-6">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-purple-950/30 border border-purple-500/20">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-purple-950/30 border border-emerald-500/20">
                       <div>
-                        <span className="text-xs font-bold text-purple-400 uppercase tracking-wider">AI Execution Strategy</span>
+                        <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">AI Execution Strategy</span>
                         <p className="text-xs text-slate-200 mt-0.5">{aiPlan.ai_summary}</p>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
-                        <span className="text-xs font-semibold bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full border border-purple-500/30">
+                        <span className="text-xs font-semibold bg-emerald-500/20 text-purple-300 px-3 py-1 rounded-full border border-emerald-500/30">
                           {aiPlan.study_style}
                         </span>
                         <span className="text-xs font-bold bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">
@@ -1160,12 +1161,12 @@ export default function Home() {
                         >
                           <div className="flex items-start gap-4">
                             <div className="px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-center shrink-0">
-                              <span className="block text-xs font-bold text-purple-400">{item.scheduled_start}</span>
+                              <span className="block text-xs font-bold text-emerald-400">{item.scheduled_start}</span>
                               <span className="block text-[10px] text-slate-500">to {item.scheduled_end}</span>
                             </div>
                             <div>
                               <div className="flex items-center gap-2">
-                                <span className="text-xs font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                                <span className="text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-indigo-300 border border-emerald-500/30">
                                   {item.subject}
                                 </span>
                                 <h4 className="text-sm font-bold text-white">{item.topic}</h4>
@@ -1183,12 +1184,12 @@ export default function Home() {
                             </div>
                           </div>
 
-                          <button
+                          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                             onClick={() => handleStartSessionFromPlan(item)}
-                            className="w-full sm:w-auto px-4 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600 text-purple-200 hover:text-white border border-purple-500/40 text-xs font-bold transition-all shrink-0 flex items-center justify-center gap-1.5"
+                            className="w-full sm:w-auto px-4 py-2 rounded-xl bg-emerald-600/30 hover:bg-emerald-600 text-purple-200 hover:text-white border border-emerald-500/40 text-xs font-bold transition-all shrink-0 flex items-center justify-center gap-1.5"
                           >
                             <span>⚡ Start Session</span>
-                          </button>
+                          </motion.button>
                         </div>
                       ))}
                     </div>
@@ -1200,12 +1201,12 @@ export default function Home() {
                     <p className="text-xs text-slate-400 max-w-sm mx-auto">
                       Select your target subjects on the left and click "Generate AI Schedule" to get a tailored study roadmap.
                     </p>
-                    <button
+                    <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                       onClick={handleGeneratePlan}
                       className="px-6 py-2.5 rounded-xl gradient-btn text-white text-xs font-bold shadow-lg"
                     >
                       Generate Study Schedule
-                    </button>
+                    </motion.button>
                   </div>
                 )}
               </div>
@@ -1216,9 +1217,9 @@ export default function Home() {
         {/* TAB: QUICK PROPORTIONAL PLANNER */}
         {activeTab === 'quick' && (
           <div className="space-y-6">
-            <div className="glass-panel p-6 rounded-3xl border border-purple-500/30 bg-purple-950/20 space-y-4">
+            <div className="glass-panel p-6 rounded-3xl border border-emerald-500/30 bg-purple-950/20 space-y-4">
               <div>
-                <span className="text-xs font-bold text-purple-400 uppercase tracking-wider">⚡ Instant Proportional Allocator</span>
+                <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">⚡ Instant Proportional Allocator</span>
                 <h2 className="text-2xl font-extrabold text-white mt-1">Quick Study Planner</h2>
                 <p className="text-xs text-slate-300 mt-1">
                   Select your available study duration below. The AI automatically distributes hours <strong>proportionally across subjects</strong> based on priority scores and exam urgency.
@@ -1233,18 +1234,18 @@ export default function Home() {
                   { hours: 6, label: '⚡ 6 Hours', desc: '3 Subjects (Proportional)' },
                   { hours: 8, label: '⚡ 8 Hours', desc: '4 Subjects (Proportional)' },
                 ].map((item) => (
-                  <button
+                  <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                     key={item.hours}
                     onClick={() => setQuickHours(item.hours)}
                     className={`p-4 rounded-2xl border text-left transition-all ${
                       quickHours === item.hours
-                        ? 'bg-purple-600 border-purple-400 text-white shadow-xl scale-[1.02]'
+                        ? 'bg-emerald-600 border-emerald-400 text-white shadow-xl scale-[1.02]'
                         : 'bg-slate-900/80 border-white/10 text-slate-300 hover:bg-slate-800'
                     }`}
                   >
                     <span className="block text-base font-extrabold">{item.label}</span>
                     <span className="block text-[11px] opacity-80 mt-0.5">{item.desc}</span>
-                  </button>
+                  </motion.button>
                 ))}
               </div>
 
@@ -1254,14 +1255,14 @@ export default function Home() {
                   <span className="font-bold text-slate-200">
                     Proportional Hour Distribution Preview ({quickHours} Hours Total)
                   </span>
-                  <span className="text-purple-400 font-semibold">{subjects.length} Total Subjects Tracked</span>
+                  <span className="text-emerald-400 font-semibold">{subjects.length} Total Subjects Tracked</span>
                 </div>
 
                 {subjects.length > 0 ? (
                   <div className="space-y-2">
                     <div className="h-4 w-full rounded-full bg-slate-800 flex overflow-hidden p-0.5 border border-white/5">
                       {getProportionalPreview(quickHours).map((item, idx) => {
-                        const colors = ['bg-purple-500', 'bg-indigo-500', 'bg-emerald-500', 'bg-amber-500', 'bg-cyan-500'];
+                        const colors = ['bg-emerald-500', 'bg-emerald-500', 'bg-emerald-500', 'bg-amber-500', 'bg-cyan-500'];
                         return (
                           <div
                             key={idx}
@@ -1289,7 +1290,7 @@ export default function Home() {
                 )}
               </div>
 
-              <button
+              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={() => handleGenerateQuickPlan(quickHours)}
                 disabled={generatingPlan || subjects.length === 0}
                 className="w-full py-4 rounded-2xl gradient-btn text-white font-extrabold text-sm shadow-xl flex items-center justify-center gap-2"
@@ -1304,7 +1305,7 @@ export default function Home() {
                     <span>⚡ Generate {quickHours}-Hour Proportional Quick Plan</span>
                   </>
                 )}
-              </button>
+              </motion.button>
             </div>
           </div>
         )}
@@ -1313,44 +1314,44 @@ export default function Home() {
         {activeTab === 'timer' && (
           <div className="max-w-2xl mx-auto glass-panel p-8 rounded-3xl border border-white/10 space-y-8 text-center">
             <div>
-              <span className="text-xs font-bold text-purple-400 uppercase tracking-wider">Live Focus Companion</span>
+              <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Live Focus Companion</span>
               <h2 className="text-2xl font-extrabold text-white mt-1">
                 {timerSubject ? `${timerSubject} - ${timerTopic}` : 'Pomodoro Study Session'}
               </h2>
             </div>
 
             <div className="inline-flex p-1 rounded-2xl bg-slate-900/80 border border-white/10 gap-1">
-              <button
+              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={() => resetTimer('work', 25)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                  timerMode === 'work' ? 'bg-purple-600 text-white shadow-md' : 'text-slate-400 hover:text-white'
+                  timerMode === 'work' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400 hover:text-white'
                 }`}
               >
                 🍅 Work (25m)
-              </button>
-              <button
+              </motion.button>
+              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={() => resetTimer('shortBreak', 5)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   timerMode === 'shortBreak' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400 hover:text-white'
                 }`}
               >
                 ☕ Short Break (5m)
-              </button>
-              <button
+              </motion.button>
+              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={() => resetTimer('longBreak', 15)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                  timerMode === 'longBreak' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'
+                  timerMode === 'longBreak' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400 hover:text-white'
                 }`}
               >
                 🌿 Long Break (15m)
-              </button>
+              </motion.button>
             </div>
 
             <div className="py-6 flex flex-col items-center justify-center">
               <div
                 className={`relative h-64 w-64 rounded-full border-4 flex items-center justify-center transition-all ${
                   timerRunning
-                    ? 'border-purple-500 active-timer-glow bg-purple-950/20'
+                    ? 'border-emerald-500 active-timer-glow bg-purple-950/20'
                     : 'border-slate-800 bg-slate-900/50'
                 }`}
               >
@@ -1394,7 +1395,7 @@ export default function Home() {
             </div>
 
             <div className="flex items-center justify-center gap-4 pt-2">
-              <button
+              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={toggleTimer}
                 className={`px-8 py-3.5 rounded-2xl font-bold text-sm transition-all shadow-xl ${
                   timerRunning
@@ -1403,13 +1404,13 @@ export default function Home() {
                 }`}
               >
                 {timerRunning ? '⏸ Pause Timer' : '▶ Start Timer'}
-              </button>
-              <button
+              </motion.button>
+              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={handleCompleteSession}
                 className="px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-xl transition-all"
               >
                 ✅ Save & Complete Session
-              </button>
+              </motion.button>
             </div>
           </div>
         )}
@@ -1419,28 +1420,28 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="space-y-6">
               <div className="flex p-1 rounded-2xl bg-slate-900/80 border border-white/10">
-                <button
+                <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                   type="button"
                   onClick={() => setSubjectEntryMode('manual')}
                   className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all ${
                     subjectEntryMode === 'manual'
-                      ? 'bg-purple-600 text-white shadow-md'
+                      ? 'bg-emerald-600 text-white shadow-md'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
                   ✍️ Manual Entry
-                </button>
-                <button
+                </motion.button>
+                <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                   type="button"
                   onClick={() => setSubjectEntryMode('analyzer')}
                   className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all ${
                     subjectEntryMode === 'analyzer'
-                      ? 'bg-purple-600 text-white shadow-md'
+                      ? 'bg-emerald-600 text-white shadow-md'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
                   📄 AI Syllabus Analyzer
-                </button>
+                </motion.button>
               </div>
 
               {subjectEntryMode === 'manual' && (
@@ -1455,12 +1456,12 @@ export default function Home() {
                       placeholder="e.g. Computer Science"
                       className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-white/10 text-white text-xs"
                     />
-                    <button
+                    <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                       type="submit"
-                      className="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs shadow-md"
+                      className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md"
                     >
                       Add Subject
-                    </button>
+                    </motion.button>
                   </form>
                 </div>
               )}
@@ -1489,7 +1490,7 @@ export default function Home() {
                   )}
 
                   <form onSubmit={handleAnalyzeSyllabus} className="space-y-4">
-                    <div className="border-2 border-dashed border-white/15 hover:border-purple-500/50 rounded-2xl p-6 text-center transition-all bg-slate-900/40">
+                    <div className="border-2 border-dashed border-white/15 hover:border-emerald-500/50 rounded-2xl p-6 text-center transition-all bg-slate-900/40">
                       <input
                         type="file"
                         id="syllabus-file-input"
@@ -1508,7 +1509,7 @@ export default function Home() {
                       </label>
                     </div>
 
-                    <button
+                    <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                       type="submit"
                       disabled={!syllabusFile || analyzingSyllabus}
                       className="w-full py-3 rounded-xl gradient-btn text-white font-bold text-xs shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
@@ -1523,7 +1524,7 @@ export default function Home() {
                           <span>⚡ Analyze & Preview Syllabus</span>
                         </>
                       )}
-                    </button>
+                    </motion.button>
                   </form>
                 </div>
               )}
@@ -1591,13 +1592,13 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <button
+                  <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={subjects.length === 0}
                     className="w-full py-2.5 rounded-xl gradient-btn text-white font-bold text-xs shadow-md"
                   >
                     Add Topic
-                  </button>
+                  </motion.button>
                 </form>
               </div>
             </div>
@@ -1605,20 +1606,20 @@ export default function Home() {
             <div className="lg:col-span-2 space-y-6">
               {/* EDIT SYLLABUS PREVIEW PANEL */}
               {previewSyllabus && (
-                <div className="glass-panel p-6 rounded-3xl border-2 border-purple-500/40 bg-purple-950/20 space-y-6 shadow-2xl">
-                  <div className="flex items-center justify-between border-b border-purple-500/20 pb-4">
+                <div className="glass-panel p-6 rounded-3xl border-2 border-emerald-500/40 bg-purple-950/20 space-y-6 shadow-2xl">
+                  <div className="flex items-center justify-between border-b border-emerald-500/20 pb-4">
                     <div>
-                      <span className="text-xs font-extrabold text-purple-400 uppercase tracking-wider">
+                      <span className="text-xs font-extrabold text-emerald-400 uppercase tracking-wider">
                         ✏️ Edit Extracted Syllabus Before Saving
                       </span>
                       <h3 className="text-lg font-bold text-white mt-1">Customize Subject & Topics</h3>
                     </div>
-                    <button
+                    <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                       onClick={() => setPreviewSyllabus(null)}
                       className="text-xs text-slate-400 hover:text-white"
                     >
                       Cancel
-                    </button>
+                    </motion.button>
                   </div>
 
                   <div className="space-y-4">
@@ -1628,7 +1629,7 @@ export default function Home() {
                         type="text"
                         value={previewSyllabus.subject_name}
                         onChange={(e) => setPreviewSyllabus({ ...previewSyllabus, subject_name: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-purple-500/30 text-white text-sm font-bold"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-emerald-500/30 text-white text-sm font-bold"
                       />
                     </div>
 
@@ -1637,12 +1638,12 @@ export default function Home() {
                         <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
                           Extracted Units / Topics ({previewSyllabus.topics.length})
                         </label>
-                        <button
+                        <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                           onClick={addPreviewTopic}
-                          className="text-xs text-purple-300 hover:text-purple-200 font-bold bg-purple-500/20 px-2.5 py-1 rounded-lg border border-purple-500/30"
+                          className="text-xs text-purple-300 hover:text-purple-200 font-bold bg-emerald-500/20 px-2.5 py-1 rounded-lg border border-emerald-500/30"
                         >
                           ➕ Add Custom Topic
-                        </button>
+                        </motion.button>
                       </div>
 
                       {previewSyllabus.topics.map((t, idx) => (
@@ -1651,7 +1652,7 @@ export default function Home() {
                           className="p-3.5 rounded-2xl bg-slate-900/90 border border-white/10 space-y-3"
                         >
                           <div className="flex items-center gap-3">
-                            <span className="text-xs font-bold text-purple-400">{idx + 1}.</span>
+                            <span className="text-xs font-bold text-emerald-400">{idx + 1}.</span>
                             <input
                               type="text"
                               value={t.name}
@@ -1659,12 +1660,12 @@ export default function Home() {
                               placeholder="Topic Name"
                               className="flex-1 px-3 py-1.5 rounded-xl bg-slate-800 border border-white/10 text-xs text-white font-medium"
                             />
-                            <button
+                            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                               onClick={() => removePreviewTopic(t.tempId)}
                               className="text-xs text-rose-400 hover:text-rose-300 font-bold px-2 py-1"
                             >
                               ✕
-                            </button>
+                            </motion.button>
                           </div>
 
                           <div className="grid grid-cols-2 gap-3 pl-6">
@@ -1672,7 +1673,7 @@ export default function Home() {
                               <span className="text-[10px] text-slate-400 block mb-1">Difficulty Level (1-5)</span>
                               <div className="flex gap-1">
                                 {[1, 2, 3, 4, 5].map((lvl) => (
-                                  <button
+                                  <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                                     key={lvl}
                                     type="button"
                                     onClick={() => updatePreviewTopic(t.tempId, 'difficulty', lvl)}
@@ -1683,7 +1684,7 @@ export default function Home() {
                                     }`}
                                   >
                                     L{lvl}
-                                  </button>
+                                  </motion.button>
                                 ))}
                               </div>
                             </div>
@@ -1692,18 +1693,18 @@ export default function Home() {
                               <span className="text-[10px] text-slate-400 block mb-1">Priority Rating (1-5)</span>
                               <div className="flex gap-1">
                                 {[1, 2, 3, 4, 5].map((lvl) => (
-                                  <button
+                                  <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                                     key={lvl}
                                     type="button"
                                     onClick={() => updatePreviewTopic(t.tempId, 'priority', lvl)}
                                     className={`flex-1 py-1 text-[10px] font-bold rounded-md border ${
                                       t.priority === lvl
-                                        ? 'bg-purple-600 text-white border-purple-400'
+                                        ? 'bg-emerald-600 text-white border-emerald-400'
                                         : 'bg-slate-800 text-slate-400 border-white/5'
                                     }`}
                                   >
                                     P{lvl}
-                                  </button>
+                                  </motion.button>
                                 ))}
                               </div>
                             </div>
@@ -1712,7 +1713,7 @@ export default function Home() {
                       ))}
                     </div>
 
-                    <button
+                    <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                       onClick={handleSavePreviewSyllabus}
                       disabled={savingPreviewSyllabus || !previewSyllabus.subject_name.trim()}
                       className="w-full py-3.5 rounded-xl gradient-btn text-white font-bold text-sm shadow-xl flex items-center justify-center gap-2"
@@ -1727,7 +1728,7 @@ export default function Home() {
                           <span>💾 Confirm & Save Syllabus to My Account</span>
                         </>
                       )}
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
               )}
@@ -1744,12 +1745,12 @@ export default function Home() {
                           ({subjectTopics.filter((t) => t.completed).length}/{subjectTopics.length} done)
                         </span>
                       </h3>
-                      <button
+                      <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                         onClick={() => handleDeleteSubject(subject.id)}
                         className="text-xs text-rose-400 hover:text-rose-300 font-semibold"
                       >
                         Delete Subject
-                      </button>
+                      </motion.button>
                     </div>
 
                     {subjectTopics.length > 0 ? (
@@ -1760,7 +1761,7 @@ export default function Home() {
                             return (
                               <div
                                 key={topic.id}
-                                className="p-3.5 rounded-2xl bg-purple-950/30 border border-purple-500/40 space-y-3"
+                                className="p-3.5 rounded-2xl bg-purple-950/30 border border-emerald-500/40 space-y-3"
                               >
                                 <div className="flex items-center gap-2">
                                   <input
@@ -1776,7 +1777,7 @@ export default function Home() {
                                     <span className="text-[10px] text-slate-400 block mb-1">Difficulty</span>
                                     <div className="flex gap-1">
                                       {[1, 2, 3, 4, 5].map((lvl) => (
-                                        <button
+                                        <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                                           key={lvl}
                                           type="button"
                                           onClick={() => setEditTopicDifficulty(lvl)}
@@ -1785,7 +1786,7 @@ export default function Home() {
                                           }`}
                                         >
                                           {lvl}
-                                        </button>
+                                        </motion.button>
                                       ))}
                                     </div>
                                   </div>
@@ -1794,34 +1795,34 @@ export default function Home() {
                                     <span className="text-[10px] text-slate-400 block mb-1">Priority</span>
                                     <div className="flex gap-1">
                                       {[1, 2, 3, 4, 5].map((lvl) => (
-                                        <button
+                                        <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                                           key={lvl}
                                           type="button"
                                           onClick={() => setEditTopicPriority(lvl)}
                                           className={`flex-1 py-1 text-[10px] font-bold rounded ${
-                                            editTopicPriority === lvl ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-400'
+                                            editTopicPriority === lvl ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-400'
                                           }`}
                                         >
                                           {lvl}
-                                        </button>
+                                        </motion.button>
                                       ))}
                                     </div>
                                   </div>
                                 </div>
 
                                 <div className="flex justify-end gap-2">
-                                  <button
+                                  <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                                     onClick={cancelEditTopic}
                                     className="text-xs px-3 py-1 text-slate-400 hover:text-white"
                                   >
                                     Cancel
-                                  </button>
-                                  <button
+                                  </motion.button>
+                                  <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                                     onClick={() => handleSaveTopicEdit(topic.id)}
-                                    className="text-xs px-3 py-1 bg-purple-600 text-white font-bold rounded-lg"
+                                    className="text-xs px-3 py-1 bg-emerald-600 text-white font-bold rounded-lg"
                                   >
                                     Save Topic
-                                  </button>
+                                  </motion.button>
                                 </div>
                               </div>
                             );
@@ -1837,7 +1838,7 @@ export default function Home() {
                                   type="checkbox"
                                   checked={topic.completed}
                                   onChange={() => handleToggleTopicCompleted(topic)}
-                                  className="h-4 w-4 rounded accent-purple-500 cursor-pointer"
+                                  className="h-4 w-4 rounded accent-emerald-500 cursor-pointer"
                                 />
                                 <span
                                   className={`text-xs font-semibold ${
@@ -1852,21 +1853,21 @@ export default function Home() {
                                 <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">
                                   Diff: {topic.difficulty}/5
                                 </span>
-                                <span className="text-[10px] px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">
+                                <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-purple-300 border border-emerald-500/20">
                                   Prio: {topic.priority}/5
                                 </span>
-                                <button
+                                <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                                   onClick={() => startEditTopic(topic)}
                                   className="text-slate-400 hover:text-purple-300 text-xs px-1.5 py-0.5 rounded bg-slate-800"
                                 >
                                   ✏️ Edit
-                                </button>
-                                <button
+                                </motion.button>
+                                <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                                   onClick={() => handleDeleteTopic(topic.id)}
                                   className="text-slate-500 hover:text-rose-400 text-xs ml-1"
                                 >
                                   ✕
-                                </button>
+                                </motion.button>
                               </div>
                             </div>
                           );
@@ -1907,18 +1908,18 @@ export default function Home() {
                       { id: 'quiz', label: '⏱️ Quiz' },
                       { id: 'project', label: '🚀 Project' },
                     ].map((typeItem) => (
-                      <button
+                      <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                         key={typeItem.id}
                         type="button"
                         onClick={() => setNewEventType(typeItem.id as any)}
                         className={`p-2 rounded-xl text-xs font-bold border text-center transition-all ${
                           newEventType === typeItem.id
-                            ? 'bg-purple-600 text-white border-purple-400'
+                            ? 'bg-emerald-600 text-white border-emerald-400'
                             : 'bg-slate-900 border-white/10 text-slate-400'
                         }`}
                       >
                         {typeItem.label}
-                      </button>
+                      </motion.button>
                     ))}
                   </div>
                 </div>
@@ -1972,13 +1973,13 @@ export default function Home() {
                   ></textarea>
                 </div>
 
-                <button
+                <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={subjects.length === 0}
                   className="w-full py-3 rounded-xl gradient-btn text-white font-bold text-xs shadow-md"
                 >
                   Save Academic Event
-                </button>
+                </motion.button>
               </form>
             </div>
 
@@ -1989,17 +1990,17 @@ export default function Home() {
                 </h3>
                 <div className="flex gap-1 overflow-x-auto scrollbar-none">
                   {['all', 'exam', 'assignment', 'quiz', 'project'].map((typeFilter) => (
-                    <button
+                    <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                       key={typeFilter}
                       onClick={() => setCalendarFilter(typeFilter as any)}
                       className={`px-3 py-1 rounded-full text-xs font-bold capitalize transition-all ${
                         calendarFilter === typeFilter
-                          ? 'bg-purple-600 text-white'
+                          ? 'bg-emerald-600 text-white'
                           : 'bg-slate-900 border border-white/10 text-slate-400 hover:text-white'
                       }`}
                     >
                       {typeFilter === 'all' ? 'All Events' : typeFilter}
-                    </button>
+                    </motion.button>
                   ))}
                 </div>
               </div>
@@ -2014,7 +2015,7 @@ export default function Home() {
                       <div key={exam.id} className="glass-panel p-5 rounded-3xl border border-white/10 space-y-3">
                         <div className="flex items-start justify-between">
                           <div>
-                            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-purple-300 border border-emerald-500/30">
                               {subjectName}
                             </span>
                             <span className="text-[10px] font-semibold ml-2 text-slate-400">
@@ -2038,12 +2039,12 @@ export default function Home() {
                         )}
 
                         <div className="pt-2 flex justify-end">
-                          <button
+                          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                             onClick={() => handleDeleteExam(exam.id)}
                             className="text-xs text-slate-500 hover:text-rose-400 font-medium"
                           >
                             Remove Event
-                          </button>
+                          </motion.button>
                         </div>
                       </div>
                     );
@@ -2097,7 +2098,7 @@ export default function Home() {
             )}
           </div>
         )}
-      </main>
+      </motion.main>
     </div>
   );
 }
